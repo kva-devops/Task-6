@@ -9,31 +9,25 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 public class CarDaoImpl implements CarDao {
-
-    private final CopyOnWriteArrayList<Car> listCars = new CopyOnWriteArrayList<>() {{
-       add(new Car("BMW i5", 123456789, true));
-       add(new Car("Audi A6", 234567890, false));
-       add(new Car("Lada NIVA", 345678901, false));
-       add(new Car("Tesla Model X", 456789012, true));
-       add(new Car("Volvo XC90", 567890123, false));
-    }};
+    private final static List<Car> listCars = List.of(
+            new Car("BMW i5", 123456789, true),
+            new Car("Audi A6", 234567890, false),
+            new Car("Lada NIVA", 345678901, false),
+            new Car("Tesla Model X", 456789012, true),
+            new Car("Volvo XC90", 567890123, false));
 
     @Override
-    public List<Car> getCars(String count) {
-        List<Car> result = new ArrayList<>();
-        if (count == null) {
-            result.addAll(listCars);
-        } else {
-            if (count.matches("\\d*")) {
-                if (Integer.parseInt(count) >= listCars.size()) {
-                    result.addAll(listCars);
-                } else {
-                    for (int i = 0; i < Integer.parseInt(count); i++) {
-                        result.add(listCars.get(i));
-                    }
-                }
-            }
-        }
-        return result;
+    public List<Car> getAllCars() {
+        return listCars;
+
+    }
+    @Override
+    public List<Car> getSublistOfCarsByCount(int count) {
+        return listCars.subList(0, count);
+    }
+
+    @Override
+    public int getSizeOfList() {
+        return listCars.size();
     }
 }
