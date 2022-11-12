@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import web.dao.CarDao;
 import web.model.Car;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,16 +14,12 @@ public class CarServiceImpl implements CarService {
     private CarDao carDao;
 
     @Override
-    public List<Car> getCars(String count) {
-        if (count == null) {
-            return carDao.getAllCars();
+    public List<Car> getCars(Integer count) {
+        List<Car> carList = carDao.getCars();
+        if (count == null || count >= carList.size()) {
+            return carList;
         }
-        if (!count.matches("\\d*")) {
-            return new ArrayList<>();
-        }
-        if (Integer.parseInt(count) >= carDao.getSizeOfList()) {
-            return carDao.getAllCars();
-        }
-        return carDao.getSublistOfCarsByCount(Integer.parseInt(count));
+        return carList.subList(0, count);
+
     }
 }

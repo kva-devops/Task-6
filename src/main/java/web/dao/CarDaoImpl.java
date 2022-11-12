@@ -3,9 +3,7 @@ package web.dao;
 import org.springframework.stereotype.Repository;
 import web.model.Car;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 public class CarDaoImpl implements CarDao {
@@ -17,17 +15,7 @@ public class CarDaoImpl implements CarDao {
             new Car("Volvo XC90", 567890123, false));
 
     @Override
-    public List<Car> getAllCars() {
+    public List<Car> getCars() {
         return listCars;
-
-    }
-    @Override
-    public List<Car> getSublistOfCarsByCount(int count) {
-        return listCars.subList(0, count);
-    }
-
-    @Override
-    public int getSizeOfList() {
-        return listCars.size();
     }
 }
